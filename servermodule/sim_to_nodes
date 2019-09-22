@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# (c) Christoph Hanauer
 # Christoph.Hanauer@uni-kassel.de
 
 # This script takes a new simulation file and makes it available on multiple ranges of nodes in our cluster
