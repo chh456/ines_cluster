@@ -40,7 +40,8 @@ function nodestring {
 }
 
 # TODO: different data structure if there are multiple simulations given for the same node
-declare -A nodes
+# declare -A nodes
+nodes=()
 
 # takes one single range or node and adds it to the nodes data structure
 function extract_nodes {
@@ -51,9 +52,11 @@ function extract_nodes {
 		hi=$(( ${BASH_REMATCH[2]} + 0 ))
 		for (( i=$lo; i<=$hi; i++ )); do
 			echo "$i: $(nodestring $i)"
+			nodes+=( $(nodestring $i) )
 		done
 	else
 		echo $(nodestring $1)
+		nodes+=( $(nodestring $i) )
 	fi
 	
 	# echo ${BASH_REMATCH[2]}
@@ -86,3 +89,8 @@ disjoint_range
 if [[ ! -d "$SIMDIR" ]]; then
 	echo "directory does not exist"
 fi
+
+echo "nodes ${#nodes[@]}"
+for i in ${nodes[@]}; do
+	echo ${i}
+done
