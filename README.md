@@ -1,14 +1,21 @@
 # ines_cluster
 Working scripts for the microcontroller cluster at INES University Kassel
 
-## Server modul (servermodule)
-
-Preparation on your workstation:
+## Server module (servermodule)
 
 Copy your public ssh key to the server module so you will be able to connect to sshd without a password.
-
 ```
 ssh-copy-id outsider@192.168.1.111
+```
+
+Add "ssh" package to your R installation. On Ubuntu as example.
+```
+sudo apt-get install -y libssh-dev
+sudo -i R
+install.packages("ssh")
+require("ssh")
+...
+q()
 ```
 
 
