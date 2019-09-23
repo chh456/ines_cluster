@@ -22,10 +22,14 @@ EX_NOINPUT=66
 IDENTIFIER=$1
 INPUTRANGE=$2
 
-SIMDIR="simulation" # path to simulation dir where the simulation identified by IDENTIFIER is stored
+# path to simulation dir where the simulation identified by IDENTIFIER is stored
+SIM_UDIR="/pxe/meta/simulation"
 
-# TODO !
-if [[ -f "$SIMDIR/$IDENTIFIER" ]]; then
+# path to the individual node directories (node01, node02, ..)
+NODEDIR="/pxe/nodes"
+
+# Script will exit if the simulation was not uploaded to the server before
+if [[ ! -d "$SIM_UDIR/$IDENTIFIER" ]]; then
 	echo "log/critical: $IDENTIFIER is not available on server node"
 	exit $EX_NOINPUT
 fi
@@ -51,12 +55,12 @@ function extract_nodes {
 		lo=$(( ${BASH_REMATCH[1]} + 0 ))
 		hi=$(( ${BASH_REMATCH[2]} + 0 ))
 		for (( i=$lo; i<=$hi; i++ )); do
-			echo "$i: $(nodestring $i)"
+			# echo "$i: $(nodestring $i)"
 			nodes+=( $(nodestring $i) )
 		done
 	else
-		echo $(nodestring $1)
-		nodes+=( $(nodestring $i) )
+		# echo $(nodestring $1)
+		nodes+=( $(nodestring $1) )
 	fi
 	
 	# echo ${BASH_REMATCH[2]}
@@ -86,11 +90,24 @@ function disjoint_range {
 
 disjoint_range
 
-if [[ ! -d "$SIMDIR" ]]; then
-	echo "directory does not exist"
-fi
 
-echo "nodes ${#nodes[@]}"
+# Count the simulation files
+SIMCOUNT=$(ls "$SIM_UDIR/$IDENTIFIER" | wc -l)
+
+echo "Copying $SIMCOUNT simulation files ($IDENTIFIER) to ${#nodes[@]} nodes."
 for i in ${nodes[@]}; do
-	echo ${i}
+	w_dir="$NODEDIR/$i/simulation"
+	# echo "$i $NODEDIR"
+	if [[ ! -d "$w_dir" ]]; then
+		echo "log/information: Simulation directory for $i had to be created"
+		mkdir -p "$w_dir"
+	fi
+	
+	if [[ -d "$w_dir/$IDENTIFIER" ]]; then
+		# Directory for the simulation already exists on node. TODO
+		echo "Directory for simulation $IDENTIFIER already exists on $i"
+	else
+		mkdir "$w_dir/$IDENTIFIER"
+		cp -R "$SIM_UDIR/$IDENTIFIER/." "$w_dir/$IDENTIFIER"
+	fi
 done
