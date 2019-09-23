@@ -28,8 +28,12 @@ print(session)
 
 #### sim_to_nodes
 
-> Location: server module
-> Path: /pxe/meta/sim_to_nodes
-> Description: this script is used within R scripts to distribute simulations to single, range or multiple ranges of nodes
-> Usage (bash):	sim_to_nodes "Simulation Identifier" "1-3;7;33-51"
-> Usage (R):		
+Location: server module
+
+Path: /pxe/meta/sim_to_nodes
+
+Description: this script is used within R scripts to distribute simulations to single, range or multiple ranges of nodes
+
+Usage (bash):	sim_to_nodes "Simulation Identifier" "1-3;7;33-51"
+
+Usage (R):		
