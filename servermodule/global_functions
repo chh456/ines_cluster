@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# /pxe/root/opt/meta/global_functions
+
 # Exit codes
 EX_MOUNT=79		# Something wrong with the mounted volume
 EX_LOG=80		# Log directory or file couldn't be created
