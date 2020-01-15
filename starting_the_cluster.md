@@ -10,7 +10,9 @@ the provided python and bash script either in workstation or server context.
 
 1. Install python (2 or 3) with websocket-client
 2. Install fping
-```sudo apt-get install fping -y```
+```
+sudo apt-get install fping -y
+```
 3. Check your routing table and make sure you are able to send packages to the nodes
 ```
 ip route
