@@ -17,16 +17,22 @@ ip route
 # Output(similar): 10.42.0.0/24 via 192.168.1.111 dev wlp3s0
 ```
   3. If there is no route present add it manually
-```sudo ip route add 10.42.0.0/24 via 192.168.1.111```
+```
+sudo ip route add 10.42.0.0/24 via 192.168.1.111
+```
 
 4. Make the script executable and start
-```chmod +x relentless_start && ./relentless_start```
+```
+chmod +x relentless_start && ./relentless_start
+```
 
 ## Server context
 
 On the server module you should be able to just run the script without any preparations.
 
-```./relentless_start```
+```
+./relentless_start
+```
 
 ## Troubleshooting
 
