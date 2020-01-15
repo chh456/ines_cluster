@@ -6,14 +6,16 @@ In the practical environment however a lot of modules won't boot properly becaus
 and issues with the TFTP or DHCP server. Usually traffic on the network interfaces and/or rebooting single modules will solve these issues. For that you can use 
 the provided python and bash script either in workstation or server context.
 
-## Preparation
+## Preparation in workstation context
 
 1. Install python
 2. Install fping
 ```sudo apt-get install fping -y```
 3. Only if you are in workstation context. Make sure the route to the modules is present for your wifi interface.
-```ip route```
-```10.42.0.0/24 via 192.168.1.111 dev wlp3s0```
+```
+ip route
+# Output like: 10.42.0.0/24 via 192.168.1.111 dev wlp3s0
+```
   3.1 If there is no route present add it manually
 ```sudo ip route add 10.42.0.0/24 via 192.168.1.111```
 
