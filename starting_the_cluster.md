@@ -8,24 +8,32 @@ the provided python and bash script either in workstation or server context.
 
 ## Preparation in workstation context
 
-1. Install python
+1. Install python (2 or 3) with websocket-client
 2. Install fping
 ```sudo apt-get install fping -y```
-3. Only if you are in workstation context. Make sure the route to the modules is present for your wifi interface.
+3. Check your routing table and make sure you are able to send packages to the nodes
 ```
 ip route
-# Output like: 10.42.0.0/24 via 192.168.1.111 dev wlp3s0
+# Output(similar): 10.42.0.0/24 via 192.168.1.111 dev wlp3s0
 ```
-  3.1 If there is no route present add it manually
+  3. If there is no route present add it manually
 ```sudo ip route add 10.42.0.0/24 via 192.168.1.111```
 
-Network activity 
-especially [https://github.com/raspberrypi/firmware/issues/894](broadcasted traffic) can solve these problems.
+4. Make the script executable and start
+```chmod +x relentless_start && ./relentless_start```
 
+## Server context
 
+On the server module you should be able to just run the script without any preparations.
 
-A script that 
+```./relentless_start```
 
-apt-get install fping
+## Troubleshooting
 
-There are several ways to start the cluster. The most reliable methods base on triggering the manufacturer's proprietary software that handles the boot process. 
+If for any reason you are not able to run the script or don't want to risk restarting the nodes, you can try sending packages to the broadcast ip address with
+
+```
+ping -b -c 3 -i 20 192.168.0.255
+```
+
+You can manually restart the module or a range of modules with the python scripts located in ```~/client``` 
