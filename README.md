@@ -42,8 +42,8 @@ sudo ip route add 10.42.0.0/24 via 192.168.1.111
 # The route should be in route's output
 route
 ```
-* You will notice a lot of modules were not started initially. With a functioning route into the cluster you can use the script `relentless_start` now that will boot the remaining modules.
-###### Dependencies
+* You will notice a lot of modules were not started initially. With a functioning route into the cluster you can use the script `relentless_start` that will boot the remaining modules.
+###### Dependencies relentless_start
   1. You need a working python interpreter with websocket client
   2. Download `relentless_start` and `controll.py` from workstation into the same directory
   3. Install `fping`
@@ -79,7 +79,41 @@ sshfs -o allow_other pi@192.168.1.111:/ ./cluster_mount 2>&1
 # pxe for the directory the client modules get their boot/root partition from
 ```
 
+## Using the cluster
 
+There are multiple options to work on the cluster. The manufactorer provides python scripts in `/home/pi/client` that can be used as blueprints for starting and shutting down nodes.
+
+```
+ssh pi@192.168.1.111
+cd client
+``` 
+
+You can find how to use these scripts in the manufactorer's manual. For an idea on how to use them on the outside you can also take a look into `controll.py`.
+
+## Run commands on the cluster
+
+Scripts and commands can be either run via ssh chain on the nodes or more recommend with the provided `starter` script available from server context and pre installed on every node.
+
+Basic overview `starter` script client context
+* Takes a command and parameters
+* Checks whether the command is available on the node
+* Handles signals for command
+* Creates custom file descriptors for standard output and error
+* Logs where to find the file descriptors in individual node directory and additional debug information
+* Blocks when everything is ready and waits for SIGCONT
+* Runs the command after signal was received
+* Logs return codes of command
+
+###### Example in bash
+
+
+
+###### Example in R
+
+
+
+Take a look into `controll.py` for a basic idea on 
+how to controll the cluster from the outside. 
 
 ## Connecting the power supply
 
