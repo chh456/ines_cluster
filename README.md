@@ -42,17 +42,17 @@ sudo ip route add 10.42.0.0/24 via 192.168.1.111
 # The route should be in route's output
 route
 ```
-* You will notice a lot of modules were not started initially. With a functioning route into the cluster you can use the script `relentless_start` that will boot the remaining modules.
-###### Dependencies relentless_start
+* You will notice a lot of modules were not started initially. With a functioning route into the cluster you can use the script `cluster_start` that will boot the remaining modules.
+###### Dependencies cluster_start
   1. You need a working python interpreter with websocket client
-  2. Download `relentless_start` and `controll.py` from workstation into the same directory
+  2. Download `cluster_start` and `controll.py` from workstation into the same directory
   3. Install `fping`
   ```
   sudo apt-get install fping
   ```
-  4. Run `relentless_start`
+  4. Run `cluster_start`
   ```
-  ./relentless_start
+  ./cluster_start
   ```
   5. After some time every module will be booted. Why this works is explained in the troubleshooting section.
 
@@ -81,14 +81,14 @@ sshfs -o allow_other pi@192.168.1.111:/ ./cluster_mount 2>&1
 
 ## Using the cluster
 
-There are multiple options to work on the cluster. The manufactorer provides python scripts in `/home/pi/client` that can be used as blueprints for starting and shutting down nodes.
+There are multiple options to work on the cluster. The manufactorer provides python scripts in `/home/pi/client` to communicate with the proprietary software installed on the nodes. Shutdown in this context means power off and start power on. If you need to shut down the modules in an orderly way you can use the ssh scripts provided in `workstation`.
 
 ```
 ssh pi@192.168.1.111
 cd client
 ``` 
 
-You can find how to use these scripts in the manufactorer's manual. For an idea on how to use them on the outside you can also take a look into `controll.py`.
+You can learn to use these scripts in the manufactorer's manual. The script `controll.py` in workstation context also uses some techniques.
 
 ## Run commands on the cluster
 
@@ -123,7 +123,7 @@ how to controll the cluster from the outside.
 * The modules are rebooted by geographic position (0 to 60)
 * The yellow led will power on after the module executes /etc/rc.local at least once successfully
 
-There will be modules left that are not able to start initially. We can start them by running relentless_start in the workstation directory. For that you need to be connected to the same WiFi than the server module and 
+There will be modules left that are not able to start initially. We can start them by running cluster_start in the workstation directory. For that you need to be connected to the same WiFi than the server module and 
 add valid route into the cluster.
 
 ## Connecting to the cluster and adding a route
