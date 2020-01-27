@@ -2,6 +2,8 @@
 
 # This script shuts down the cluster
 
+# Todo: include the server module
+
 # Script that takes a node identifier 1-60 and sends the request to the server module
 PY_SCRIPT="controll.py"
 
