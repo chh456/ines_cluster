@@ -20,7 +20,7 @@ sudo ip route add 10.42.0.0/24 via 192.168.1.111
 
 Usage: `./cluster_start`
 
-Dependencies: Python (2 or 3), websocket client, fping
+Dependencies: Python (2 or 3), websocket client, fping, controll.py
 
 Description: This script will ping every client module. If there is answer the script will use the manufactorer's software to power off the module, wait some time and power it on again.
 
