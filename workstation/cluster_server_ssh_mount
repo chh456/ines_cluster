@@ -28,7 +28,7 @@ MOUNT_DIR="${LOCAL_DIRECTORY}_$MODE"
 if [[ ! -d "$MOUNT_DIR" ]]; then
 	mkdir -p "$MOUNT_DIR"
 	if [[ $? != 0 ]]; then # Critical it gets created
-		echo "something went wrong. Exiting"
+		echo "Was not able to create directory to mount into. Exiting."
 		exit 12
 	fi
 fi
@@ -40,11 +40,12 @@ fi
 
 case "$STATE" in
 	on)
-		echo "mounting $MODE $STATE"
+		echo "Mounting $MODE to $MOUNT_DIR"
 		sshfs -o allow_other $USER@$SERVER_MODULE:$ser_dir "$MOUNT_DIR" 2>&1
 		;;
 	
 	off)
+		echo "Unmounting $MODE in $MOUNT_DIR"
 		fusermount -u "$MOUNT_DIR"
 		rm -rf "$MOUNT_DIR"
 		;;
