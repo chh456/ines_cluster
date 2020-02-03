@@ -41,11 +41,12 @@ ping 192.168.1.111
 sudo ip route add 10.42.0.0/24 via 192.168.1.111
 # The route should be in route's output
 route
+# 10.42.0.0       sevastopol      255.255.255.0   UG    0      0        0 wlp3s0
 ```
 * You will notice a lot of modules were not started initially. With a functioning route into the cluster you can use the script `cluster_start` that will boot the remaining modules.
 ###### Dependencies cluster_start
   1. You need a working python interpreter with websocket client
-  2. Download `cluster_start` and `controll.py` from workstation into the same directory
+  2. Download `cluster_start` and `controll.py` from workstation directory into the same directory
   3. Install `fping`
   ```
   sudo apt-get install fping
@@ -61,7 +62,7 @@ route
 ssh-copy-id outsider@192.168.1.111
 ```
 
-* Optional: It's easier to work directly on the data stock without having to ssh into the server module anytime
+* Optional: It's easier to work directly on the data stock without having to ssh into the server module everytime
 ```
 # Install sshfs
 sudo apt-get install sshfs
@@ -88,11 +89,13 @@ ssh pi@192.168.1.111
 cd client
 ``` 
 
-You can learn to use these scripts in the manufactorer's manual. The script `controll.py` in workstation context also uses some techniques.
+You can learn to use these scripts in the manufactorer's manual. The script `controll.py` in workstation context also uses some of the same techniques. 
 
 ## Run commands on the cluster
 
-Scripts and commands can be either run via ssh chain on the nodes or more recommend with the provided `starter` script available from server context and pre installed on every node.
+Scripts and commands can be either run with ssh directly on the nodes or more recommended with the provided tool chain available from server context and pre installed on every node.
+
+
 
 Basic overview `starter` script client context
 * Takes a command and parameters
@@ -112,8 +115,7 @@ Basic overview `starter` script client context
 
 
 
-Take a look into `controll.py` for a basic idea on 
-how to controll the cluster from the outside. 
+
 
 ## Connecting the power supply
 

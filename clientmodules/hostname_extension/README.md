@@ -50,6 +50,6 @@ Optional: On some systems you will end up in vi if you run `visudo`. You can cha
 
 ## client-nfs-mount
 
-Usuage: `not needed`
+Usage: `not needed`
 
 Description: init script for mounting individual content
