@@ -112,7 +112,7 @@ sim_dir="/pxe/meta/simulation/sim01"
 ssh pi@192.168.1.111 "mkdir $sim_dir"
 ```
 
-|  Note: If you are using the code snippet in a script there can be problems with bash internals variable interpolation.  |
+| ##### Note: If you are using the code snippet in a script there can be problems with bash internals variable interpolation.  |
 | --- |
 
 
