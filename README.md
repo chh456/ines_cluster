@@ -29,7 +29,7 @@ iwlist <wifi-interface> scan | grep "nostromo"
 
 * Connect to the wifi with the provided password
 
-## Starting the cluster
+## Powering the modules and adding route into cluster
 
 * Connect the main power supply
 * Wait until the client modules are successfully rebooted and at least some yellow LED are on
@@ -93,13 +93,33 @@ You can learn to use these scripts in the manufactorer's manual. The script `con
 
 ## Run commands on the cluster
 
-Scripts and commands can be either run with ssh directly on the nodes or more recommended with the provided tool chain available from server context and pre installed on every node.
+Scripts and commands can be either run with ssh directly on the nodes or more recommended with the provided script chain available from server context and pre installed on every node.
 
-#### Copying simulation files or custom software to nodes
+### Copying simulation files or custom software to nodes
 
 When the nodes finished booting they mount an indidivual content directory based on their hostname outside the root partition. Every content directory in `/pxe/nodes` is exclusively worked on 
-by the specific node and outside the scope of the other nodes. The individual content directory includes a `simulation` directory that can be used to make external scripts, software or simulation files 
+by the specific node and outside the scope of the other nodes. The individual content directory includes a `simulation` directory that is used to make external scripts, software or simulation files 
 available to the specific node. 
+
+#### Making the simulation files available
+
+The directory `/pxe/meta/simulation` on the server module holds simulation files and software in seperate directories. The script `sim_to_nodes` makes those available to the nodes in their individual content directories. 
+
+* We create a new directory for our simulation content
+
+```
+sim_dir="/pxe/meta/simulation/sim01"
+ssh pi@192.168.1.111 "mkdir $sim_dir"
+```
+
+---
+** Note **
+If you are using the code snippet in a script there can be problems with bash internals variable interpolation.
+---
+
+
+* We upload our simulation content into that directory
+
 
 Basic overview `starter` script client context
 * Takes a command and parameters
