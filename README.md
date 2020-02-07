@@ -95,7 +95,11 @@ You can learn to use these scripts in the manufactorer's manual. The script `con
 
 Scripts and commands can be either run with ssh directly on the nodes or more recommended with the provided tool chain available from server context and pre installed on every node.
 
+#### Copying simulation files or custom software to nodes
 
+When the nodes finished booting they mount an indidivual content directory based on their hostname outside the root partition. Every content directory in `/pxe/nodes` is exclusively worked on 
+by the specific node and outside the scope of the other nodes. The individual content directory includes a `simulation` directory that can be used to make external scripts, software or simulation files 
+available to the specific node. 
 
 Basic overview `starter` script client context
 * Takes a command and parameters
