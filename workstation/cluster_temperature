@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# We need some functions from global_functions. When you mounted the server module's root partition with the provided script these functions were made available already.
+
+
+
+# takes $1 array of integers and echoes the $2 greatest elements
+function find_max {
+	$( printf "%s\n" "${colNums[@]}" | sort -n )
+	
+}
+
+username="pi"
+currentip="10.42.0."
+
+startnode=48
+endnode=60
+count=$(( 1 + (endnode-startnode) ))
+
+declare -A nodes
+declare -A sortedNodes
+
+# nodes=()
+average=0
+
+for i in $(seq -s' ' $startnode $endnode); do
+	printf 'Fetching temperature from node%s' $i
+	current_temp=$(ssh $username@$currentip$i 'cat /sys/class/thermal/thermal_zone0/temp')
+	printf ' OK\n'
+	
+	# If temperature is 0 something went wrong
+	
+	# Can't ping the module
+	
+	nodes["node$i"]=$current_temp
+	average=$((average+current_temp))
+	
+done
+
+
+average=$(( average / count ))
+
+echo "Durchschnittliche Temperatur: $average"
+
+# sortedNodes=$( printf "%s\n" "${nodes[@]}" | sort -n -r)
+# printf "%s\n" "${nodes[@]}" | sort -n
+
+for i in "${sortedNodes[@]}"; do
+	echo $i
+done
+
+printf '\n%s %s %s\n' '---------------------------' 'Cluster Temperature' '--------------------------'
+
+
+for i in "${!nodes[@]}"
+do
+    echo $i ' - ' ${nodes[$i]}
+done |
+sort -rn -k3
