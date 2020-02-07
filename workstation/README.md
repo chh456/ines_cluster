@@ -26,11 +26,11 @@ Description: This script will ping every client module. If there is answer the s
 
 ## cluster_server_ssh_mount
 
-Usage: `./cluster_server_ssh_mount root|pxe on|off`
+Usage: `. cluster_server_ssh_mount root|pxe on|off`
 
 Dependencies: sshfs
 
-Description: This script creates a temporary directory and mounts either the server module's root partition or the client modules' root partition (pxe directory on server module). The directory is deleted when you unmount.
+Description: This script creates a temporary directory and mounts either the server module's root partition or the client modules' root partition (pxe directory on server module). On successful mount it sources the global_functions file into the bash environment. The directory is deleted when you unmount.
 
 ## cluster_shutdown
 

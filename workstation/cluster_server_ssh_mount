@@ -4,6 +4,8 @@
 # It creates a temporary directory for mounting and deletes that directory after unmounting again.
 # Usage: $0 pxe|root on|off
 
+# Some functions and datastructures in global_functions are needed for the workstation scripts to properly work. This script will source the global functions file into the current environment. 
+
 # Todo: getting exit codes from global_functions for coherence
 
 SERVER_MODULE="192.168.1.111"
@@ -42,6 +44,17 @@ case "$STATE" in
 	on)
 		echo "Mounting $MODE to $MOUNT_DIR"
 		sshfs -o allow_other $USER@$SERVER_MODULE:$ser_dir "$MOUNT_DIR" 2>&1
+		gfunctions="${MOUNT_DIR}/"
+		if [[ $MODE == "root" ]]; then
+			gfunctions="${gfunctions}pxe/"
+		fi
+		gfunctions="${gfunctions}root/opt/meta/global_functions"
+		echo "Sourcing in $gfunctions"
+		source "$gfunctions"
+		if [[ $? != 0 ]]; then
+			echo "Did not work"
+		fi
+		
 		;;
 	
 	off)
