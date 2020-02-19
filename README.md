@@ -1,6 +1,6 @@
 # Detailed guide for the microcontroller cluster at "Integrierte Energiesysteme"
 
-![Test](https://github.com/chh456/ines_cluster/github_resources/ines_cluster.jpg)
+![Test](github_resources/ines_cluster.jpg)
 
 This repository provides information about setting up and using the INES cluster. The included scripts aim to simplify and automate tasks which need to be performed regularly. 
 The scripts are categorised by context.
