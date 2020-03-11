@@ -57,7 +57,7 @@ route
   ```
   ./cluster_start
   ```
-  5. After some time every module will be booted. Why this works is explained in the troubleshooting section.
+  5. After some time every module will be booted. You can find further details about how this works in the troubleshooting section.
 
 * Optional: For scripts running outside the cluster an additional account `outsider` was created. You can add your ssh credentials to that account on the server module so your scripts can run without password questions.
 ```
@@ -82,20 +82,41 @@ sshfs -o allow_other pi@192.168.1.111:/ ./cluster_mount 2>&1
 # pxe for the directory the client modules get their boot/root partition from
 ```
 
-## Using the cluster
+## Using and running commands on the cluster
 
-There are multiple options to work on the cluster. The manufactorer provides python scripts in `/home/pi/client` to communicate with the proprietary software installed on the nodes. Shutdown in this context means power off and start power on. If you need to shut down the modules in an orderly way you can use the ssh scripts provided in `workstation`.
+There are multiple ways to run commands on the server and the client modules. The most basic tasks like restarting or shutting down all modules can be done with the manufactorer's software on the server module. They are located on the server module in the client directory in user pi's home directory.
 
 ```
 ssh pi@192.168.1.111
 cd client
-``` 
+```
 
-You can learn to use these scripts in the manufactorer's manual. The script `controll.py` in workstation context also uses some of the same techniques. 
+If you need to run a task just once on a client module the easiest way is to ssh into the client's sshd.
 
-## Run commands on the cluster
+  1. Make sure the client is booted successfully and you have a working route on your workstation into the cluster
+  ```
+  ping <client ip>
+  route
+  ```
+  2. Ssh via console or script
+  ```
+  ssh outsider@<client ip>
+  ```
+  
+  ```
+  #!/bin/bash
+  ssh -o StrictHostKeyChecking=no outsider@<client ip> 'commands to run seperated by semicolon'
+  # or
+  ssh -o StrictHostKeyChecking=no outsider@<client ip> < file_with_commands_created_in_the_same_directory
+  ```
 
-Scripts and commands can be either run with ssh directly on the nodes or more recommended with the provided script chain available from server context and pre installed on every node.
+| Note |
+| :--- |
+| Using variables in the ssh command can be a bit tricky. For a possible solution take a look at the `sim_start_on_nodes` in server module context. |
+
+You can also use the sim_\* toolchain provided in server module context. The sim_-scripts distribute/run the software to/on the clients and keep the standard error/output in the clients' individual directories.
+
+TODO: Mv this part to server module context.
 
 ### Copying simulation files or custom software to nodes
 
