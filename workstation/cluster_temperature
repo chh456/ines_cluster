@@ -40,6 +40,22 @@ function get_temp_for_node {
 }
 
 
+function get_mac {
+
+	current_ip=$(get_ip_for_node $1)
+	interface="eth0"
+	
+	if [[ $current_ip == 192* ]]; then # node is a zero
+		interface="wlan0"
+	fi
+
+	interfacestr="/sys/class/net/$interface/address"
+	# printf -v __ %q "$interfacestr"
+	#echo "3"
+	ret=$(ssh $username@$current_ip "cat $interfacestr")
+	echo $ret
+}
+
 # Headline
 
 # Terminal properties. We need 5 rows and 15 columns
@@ -57,7 +73,12 @@ for (( col=1; col<=15; col++ )); do
 		current_node=$(( col + row * 15 ))
 		
 		current_temp=$(get_temp_for_node $current_node)
-		printf '%-*s' $fifth $current_temp
+		#echo "im here"
+		#echo $current_node
+		#type -t get_mac	
+		# current_temp=$(get_mac $current_node)
+		# echo "im not here anymore"
+		printf '%-*s' $fifth "$current_temp"
 	
 	done
 	printf '\n'
